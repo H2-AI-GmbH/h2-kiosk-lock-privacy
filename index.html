@@ -21,7 +21,7 @@
 </head>
 <body>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: September 30, 2026</p>
+    <p class="updated">Last updated: October 6, 2026</p>
     
     <h2>H2 Kiosk Lock App</h2>
     <p>H2 Kiosk Lock ("we", "our", or "the app") is developed by H2-AI GmbH. This privacy policy explains how we handle your data.</p>
@@ -37,6 +37,7 @@
     <h2>1. Summary</h2>
     <p>The kiosk itself runs entirely on your device. Your PIN, your settings and your selected apps never leave it.</p>
     <p>Since version 1.1.0, Premium is sold as a license for one device. To manage this license, the app contacts our own license server in Germany: once after installation, to check whether this device already has a license (so a license you bought comes back by itself, for example after reinstalling the app), when you buy a device license, regularly while a license is stored on the device, and when you ask the app to restore a license. It then sends a pseudonymous device ID (a one-way hash, not your Android ID itself) and, after a purchase, the Google Play purchase receipt. If you only use the free demo, the app sends the pseudonymous device ID to us once, for that check after installation, and nothing after that. We do not receive your name, your email address, your Google account or your payment details. We use no analytics, no advertising and no crash reporting.</p>
+    <p>Since version 1.1.1, you can enter a creator code before buying. To check it, the app sends only the code to our server, without any device ID (section 3.7). Business customers can also obtain device licenses directly from us instead of through Google Play (section 3.8).</p>
     <p>If you bought Premium before version 1.1.0, nothing changes for you: that purchase is checked by Google Play on your device, as before, and is not sent to our server. Once the app has recognised that purchase on the device, it also skips the check after installation.</p>
     
     <h2>2. Data stored only on your device</h2>
@@ -45,6 +46,7 @@
         <li><strong>Settings:</strong> stored locally using Android DataStore</li>
         <li><strong>Selected apps:</strong> stored locally on your device</li>
         <li><strong>If you bought a device license:</strong> the license for this device as a file signed by our server, so Premium keeps working offline, and, until the license is confirmed, the Google Play purchase receipt</li>
+        <li><strong>If you bought with a creator code:</strong> the code, until the purchase has been registered with our server</li>
     </ul>
     <p>The app is excluded from Android's cloud backup, so none of this is copied into a Google backup.</p>
     
@@ -52,18 +54,20 @@
     <h3>3.1 When the app contacts our server</h3>
     <ul>
         <li>Once after the app is installed: when the app starts and no license is stored on the device, it asks our server whether this device has a license, so that a license bought for this device comes back without you having to do anything, for example after reinstalling the app. This check waits until the device is online. Once our server has answered (license found or no license), the app does not repeat this automatic check. If there was no answer, for example because the device was offline or our server could not be reached, the app tries again the next time it starts.</li>
-        <li>Right after you buy a device license, to register the purchase.</li>
+        <li>Right after you buy a device license, to register the purchase. This also applies to a device license you got with a promo code redeemed in the Google Play Store: the app registers it the next time it checks your purchases with Google Play. Such a purchase carries no device ID, so it is assigned to the first device of your Google account that registers it and does not have a license yet.</li>
         <li>About once a day while a license is stored on the device and the device is online, to renew it. Without a connection, Premium keeps working for up to 30 days from the last successful check; after 20 days the app reminds you to connect.</li>
         <li>When you tap "Restore license", for example if the automatic check could not reach our server.</li>
+        <li>When you enter a creator code and tap "Apply", to check the code. This request contains only the code and the name of the app, no device ID (section 3.7).</li>
     </ul>
-    <p>The app does not contact the license server in any other situation. If you never buy a device license, the app sends the pseudonymous device ID to us only for the one automatic check after installation.</p>
+    <p>The app does not contact the license server in any other situation. If you never buy a device license, the app sends the pseudonymous device ID to us only for the one automatic check after installation. Showing the device ID in the settings ("Show device ID") works on the device only and sends nothing.</p>
     <h3>3.2 What is sent</h3>
     <ul>
         <li><strong>Device ID:</strong> a SHA-256 hash of Android's device ID (ANDROID_ID) combined with a fixed value specific to this app. Our server never receives the Android ID itself. The value stays the same when you reinstall the app and changes after a factory reset.</li>
         <li><strong>Purchase receipt, only when a purchase is registered:</strong> the purchase token that Google Play gives the app, and the ID of the product bought.</li>
         <li>The name of the app ("kiosk").</li>
+        <li><strong>Creator code, only if you entered one:</strong> when the code is checked, and again together with the purchase receipt when the purchase is registered.</li>
     </ul>
-    <p>When our server receives a purchase token, it asks Google Play to confirm the purchase and receives from Google the order number, the quantity, the purchase state, whether it was a test purchase and the device ID that the app passed to Google Play when you bought (section 4). It stores the device ID, the purchase token, the product ID, the order number, the quantity, whether it was a test purchase, whether the purchase has been consumed, and the time of registration. For each license it keeps a license ID, the device it is bound to and when it was bound, withdrawn or moved, and a log of these events. It then marks the purchase as consumed at Google Play. Our server also regularly fetches from Google Play the list of refunded purchases of this app (purchase token, order number, time, quantity, reason) and keeps it, so that a refunded purchase cannot become a license.</p>
+    <p>When our server receives a purchase token, it asks Google Play to confirm the purchase and receives from Google the order number, the quantity, the purchase state, whether it was a test purchase, the device ID that the app passed to Google Play when you bought (section 4), the time of the purchase and, if you bought at a discount, which discount offer was used. It stores the device ID, the purchase token, the product ID, the order number, the quantity, whether it was a test purchase, whether the purchase has been consumed, and the time of registration. For each license it keeps a license ID, the device it is bound to and when it was bound, withdrawn or moved, and a log of these events. It then marks the purchase as consumed at Google Play. Our server also regularly fetches from Google Play the list of refunded purchases of this app (purchase token, order number, time, quantity, reason) and keeps it, so that a refunded purchase cannot become a license.</p>
     <p>The license the server sends back contains the device ID, the license ID and how long it is valid, and is signed by our server. It is stored on your device (section 2).</p>
     <h3>3.3 Why, and on which legal basis</h3>
     <ul>
@@ -71,7 +75,8 @@
         <li>To give a license back to the device it was bought for without you having to ask, through the automatic check after installation (section 3.1). If the device has a license, this serves the contract (Art. 6(1)(b) GDPR). If it has none, the check is based on our legitimate interest in returning licenses to our customers automatically and in not offering a second purchase for a device that is already licensed (Art. 6(1)(f) GDPR). The answer "no license" is not stored on our server (section 3.5).</li>
         <li>To stop misuse: a purchase can only be registered once and only for the device it was bought on, and a license is withdrawn when Google Play reports that the purchase was refunded (legitimate interest in preventing fraud, Art. 6(1)(f) GDPR).</li>
         <li>To move a license to the same device after a factory reset, if you ask us to (Art. 6(1)(b) GDPR).</li>
-        <li>Reading the Android device ID on your device is only done in the situations listed in 3.1. The device license is bound to the device, and in our view recognising the device, including restoring a license bought for it after a reinstallation, is strictly necessary to provide the licensed kiosk service you use (Section 25(2) no. 2 of the German TDDDG). The device ID is used for nothing else.</li>
+        <li>To check a creator code and to count a purchase made with it for the creator who handed out the code, so that we can pay the creator for the purchases made with their code (legitimate interest in working with creators and settling their commission, Art. 6(1)(f) GDPR; section 3.7).</li>
+        <li>Reading the Android device ID on your device is only done in the situations listed in 3.1, and when you tap "Show device ID" in the settings. The device license is bound to the device, and in our view recognising the device, including restoring a license bought for it after a reinstallation, is strictly necessary to provide the licensed kiosk service you use (Section 25(2) no. 2 of the German TDDDG). The device ID is used for nothing else.</li>
     </ul>
     <h3>3.4 Server logs</h3>
     <p>Our license server receives your device's IP address with each request. The web server writes it to its access log together with the time, the requested address, the response code and the technical identification that Android sends with each request (Android version, device model and build number). The access log is deleted after at most 15 days. This also applies to the automatic check after installation; the access log does not contain the device ID. We use it only to operate the server and to fend off attacks; we do not use it to determine your location and do not combine it with the license data. To limit abuse, the server also counts requests per IP address for one minute, in memory only. The license service itself writes no access log and never logs device IDs, purchase tokens or order numbers.</p>
@@ -81,11 +86,22 @@
         <li>Records of refunded or withdrawn licenses are deleted 12 months after the last withdrawal; they are kept that long so that the same purchase cannot be registered again.</li>
         <li>Entries in the event log, and refunds reported by Google for purchases that were never registered, are deleted after 12 months.</li>
         <li>A check that finds no license, such as the automatic check on a device without a license, is not stored in our database; only the access log entry remains (section 3.4).</li>
+        <li>The link between a purchase and the creator code it was made with is kept as long as the purchase record and deleted together with it.</li>
+        <li>Checking a creator code is not stored in our database; only the access log entry remains (section 3.4).</li>
+        <li>Licenses we grant directly to business customers (section 3.8) are kept and deleted like licenses bought through Google Play.</li>
         <li>Encrypted backups of the license database are kept for 30 days, server access logs for at most 15 days.</li>
     </ul>
     <p>Deletion runs automatically once a day.</p>
     <h3>3.6 Where</h3>
     <p>The license server runs on a server rented from Hetzner Online GmbH in Germany, which processes the data on our behalf under a data processing agreement. Encrypted backups (GPG) are made every night and stored on our own file server, operated by H2-AI GmbH in Germany. All connections between the app and the license server use HTTPS.</p>
+    <h3>3.7 Creator codes</h3>
+    <p>Creators (for example video makers who present the app) can hand out a code that unlocks a discount at Google Play. Entering a code is optional. When you tap "Apply", the app sends the code and the name of the app to our server; our server only answers whether the code can be used and which discount offer belongs to it. This check sends no device ID and is not stored in our database. If you then buy, Google Play processes the purchase with that discount offer, and the app sends the code to our server together with the purchase receipt (section 3.2). Our server counts the purchase for the creator only if Google Play confirms that it was made with the creator's discount offer. It stores which purchase was made with which code. You get your license whether or not the purchase is counted.</p>
+    <p>We use this only to settle the creator's commission. The creator receives from us only the number of purchases made with their code (including how many were refunded); never your device ID, order number or other information about you.</p>
+    <h3>3.8 Licenses bought directly from us (business customers)</h3>
+    <p>Business customers can obtain device licenses directly from H2-AI GmbH instead of through Google Play. The customer sends us the device ID of each device (shown in the app's settings) and, if they wish, a name for each device. On our license server we then store, for each device, the device ID, a license bound to it, our invoice or order reference and the device name as a note. The device then receives its license in the usual way (section 3.1); no purchase in the app is needed. We use these data to provide the licenses and to move them to another device on request (performance of the contract, Art. 6(1)(b) GDPR).</p>
+    <p>The order itself (contact details, invoice and payment data) is not stored on the license server but in our accounting records. We keep these records as long as German commercial and tax law requires (Section 257 HGB, Section 147 AO; currently up to 10 years, for invoices 8 years) (legal obligation, Art. 6(1)(c) GDPR).</p>
+    <h3>3.9 Support requests by email</h3>
+    <p>If you tap "Email support" in the app (for example to move a license after a factory reset), the app opens your email app with a prepared message to <a href="mailto:info@h2-ai.de">info@h2-ai.de</a> that contains the app name, the package name, the app version and the device ID of this device. Nothing is sent by the app itself: you decide whether to send the email and can change it before sending. If you write to us, we use your email address, your message and the details it contains (such as device ID and order number) to answer your request and, where requested, to move your license (Art. 6(1)(b) GDPR, otherwise our legitimate interest in answering enquiries, Art. 6(1)(f) GDPR). We delete the email once the request is settled, unless we have to keep it under commercial or tax law.</p>
     
     <h2>4. In-app purchases</h2>
     <p>Purchases are processed by Google Play. We never see your payment details, your name or your Google account. When you buy a device license, the app passes the pseudonymous device ID from section 3.2 to Google Play as part of the purchase, so the purchase can be linked to this device; Google Play may also use this value to detect irregular purchase activity. Google handles purchase and payment data under its own privacy policy: <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></p>
@@ -94,14 +110,16 @@
     <ul>
         <li><strong>Hetzner Online GmbH, Germany:</strong> hosting of the license server, as our processor.</li>
         <li><strong>Google (Google Play):</strong> processes your purchase as the payment service and confirms purchases and refunds to our server.</li>
+        <li><strong>Creators:</strong> only the number of purchases made with their code, no personal data (section 3.7).</li>
+        <li><strong>Business customers who buy directly from us:</strong> our tax advisor and our accounting software provider receive the order and invoice data as far as needed for accounting; the payment service you choose processes your payment under its own privacy policy (section 3.8).</li>
         <li>Nobody else. We do not sell data and do not share it for advertising.</li>
     </ul>
     
     <h2>6. Your rights and how to delete your data</h2>
     <p>You have the right to access, rectification, erasure, restriction of processing, data portability and to object to processing based on legitimate interest (Art. 15-18, 20, 21 GDPR). You also have the right to lodge a complaint with a data protection supervisory authority, for example the State Commissioner for Data Protection and Freedom of Information Baden-Württemberg.</p>
-    <p>To request deletion or a copy of the license data we hold, email <a href="mailto:info@h2-ai.de">info@h2-ai.de</a>. Please give the Google Play order number (it starts with "GPA." and is in the receipt email from Google Play), the device ID, or both. The app shows the device ID in its settings under Premium as "Device ID for support" once the device has a license, or after "Restore license" found none. We answer within one month.</p>
+    <p>To request deletion or a copy of the license data we hold, email <a href="mailto:info@h2-ai.de">info@h2-ai.de</a>. Please give the Google Play order number (it starts with "GPA." and is in the receipt email from Google Play), the device ID, or both; for a license bought directly from us, our invoice or order reference. The app shows the device ID in its settings under "Device ID (for license support)": tap "Show device ID", then "Copy". We answer within one month.</p>
     <ul>
-        <li>With the order number, we delete the purchase with all its licenses, refunds and log entries. The license ends and cannot be restored.</li>
+        <li>With the order number (or our invoice or order reference), we delete the purchase with all its licenses, refunds, log entries and its link to a creator code. The license ends and cannot be restored.</li>
         <li>With the device ID only, we end the license on that device and remove the device ID from all our records. The purchase itself stays recorded without the device ID, so that the same purchase cannot be registered again.</li>
     </ul>
     <p>Copies in encrypted backups disappear within 30 days. Google Play keeps its own records of the purchase.</p>
